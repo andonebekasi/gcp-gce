@@ -1,26 +1,26 @@
 // Configure the Google Cloud provider
 provider "google" {
- project     = "${var.gcp_project}"
- region      = "${var.region}"
+ project     = "poc-danamon-devsecops"
+ region      = "asia-southeast2"
 }
 // Create VPC
 resource "google_compute_network" "vpc" {
- name                    = "${var.name}-vpc"
+ name                    = "vpc-dnmn"
  auto_create_subnetworks = "false"
 }
 
 // Create Subnet
 resource "google_compute_subnetwork" "subnet" {
- name          = "${var.name}-subnet"
- ip_cidr_range = "${var.subnet_cidr}"
- network       = "${var.name}-vpc"
- depends_on    = ["google_compute_network.vpc"]
- region      = "${var.region}"
+ name          = "vpc-subnetdnmn"
+ ip_cidr_range = "192.168.1.0/24"
+ network       = "google_compute_network.vpc.id"
+ region      = "asia-southeast2"
 }
+
 // VPC firewall configuration
 resource "google_compute_firewall" "firewall" {
-  name    = "${var.name}-firewall"
-  network = "${google_compute_network.vpc.name}"
+  name    = "dnmn-firewall"
+  network = "google_compute_network.vpc.id"
 
   allow {
     protocol = "icmp"
