@@ -5,13 +5,13 @@ provider "google" {
 }
 // Create VPC
 resource "google_compute_network" "vpc" {
- name                    = "vpc-dnmn"
+ name                    = "test-network"
  auto_create_subnetworks = "false"
 }
 
 // Create Subnet
 resource "google_compute_subnetwork" "subnet" {
- name          = "vpc-subnetdnmn"
+ name          = "test-subnetwork"
  ip_cidr_range = "192.168.1.0/24"
  network       = "google_compute_network.vpc.id"
  region      = "asia-southeast2"
