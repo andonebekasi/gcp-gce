@@ -13,14 +13,14 @@ resource "google_compute_network" "vpc" {
 resource "google_compute_subnetwork" "subnet" {
  name          = "test-subnetwork"
  ip_cidr_range = "192.168.1.0/24"
- network       = "google_compute_network.vpc.id"
+ network       = google_compute_network.vpc.id
  region      = "asia-southeast2"
 }
 
 // VPC firewall configuration
 resource "google_compute_firewall" "firewall" {
   name    = "dnmn-firewall"
-  network = "google_compute_network.vpc.id"
+  network = google_compute_network.vpc.id
 
   allow {
     protocol = "icmp"
